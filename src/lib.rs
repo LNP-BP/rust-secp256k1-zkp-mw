@@ -30,14 +30,10 @@
 #![cfg_attr(all(test, feature = "unstable"), feature(test))]
 #[cfg(all(test, feature = "unstable"))] extern crate test;
 
-extern crate arrayvec;
 extern crate rustc_serialize as serialize;
-#[cfg(feature = "serde")]
-extern crate serde;
 #[cfg(feature = "serde_json")]
 extern crate serde_json as json;
 
-extern crate libc;
 pub extern crate rand;
 
 use libc::size_t;
