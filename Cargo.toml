@@ -31,7 +31,6 @@ libc = "0.2"
 rustc-serialize = "0.3"
 serde = { version = "1.0", features = ["derive"], optional = true }
 serde_json = { version = "1.0", optional = true }
-zeroize = { version = "1.1", features = ["zeroize_derive"] }
 
 [dev-dependencies]
 chrono = "0.4.5"

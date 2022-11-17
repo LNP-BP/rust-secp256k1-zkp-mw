@@ -40,8 +40,6 @@ extern crate serde_json as json;
 extern crate libc;
 pub extern crate rand;
 
-extern crate zeroize;
-
 use libc::size_t;
 use std::{fmt, ops, ptr};
 use rand::Rng;
