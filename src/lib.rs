@@ -707,6 +707,7 @@ mod tests {
     macro_rules! hex (($hex:expr) => ($hex.from_hex().unwrap()));
 
     #[test]
+    #[cfg(feature = "arrayvec")]
     fn capabilities() {
         let none = Secp256k1::with_caps(ContextFlag::None);
         let sign = Secp256k1::with_caps(ContextFlag::SignOnly);

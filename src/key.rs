@@ -17,7 +17,6 @@
 
 #[cfg(feature = "serde")]
 use std::marker;
-use arrayvec::ArrayVec;
 use rand::Rng;
 #[cfg(feature = "serde")]
 use serde::{Serialize, Deserialize, Serializer, Deserializer};
@@ -237,8 +236,9 @@ impl PublicKey {
     /// Serialize the key as a byte-encoded pair of values. In compressed form
     /// the y-coordinate is represented by only a single bit, as x determines
     /// it up to one bit.
-    pub fn serialize_vec(&self, secp: &Secp256k1, compressed: bool) -> ArrayVec<u8, { constants::PUBLIC_KEY_SIZE }> {
-        let mut ret = ArrayVec::new();
+    #[cfg(feature = "arrayvec")]
+    pub fn serialize_vec(&self, secp: &Secp256k1, compressed: bool) -> arrayvec::ArrayVec<u8, { constants::PUBLIC_KEY_SIZE }> {
+        let mut ret = arrayvec::ArrayVec::new();
 
         unsafe {
             let mut ret_len = constants::PUBLIC_KEY_SIZE as ::libc::size_t;
@@ -443,6 +443,7 @@ mod test {
     }
 
     #[test]
+    #[cfg(feature = "arrayvec")]
     fn keypair_slice_round_trip() {
         let s = Secp256k1::new();
 
@@ -713,6 +714,7 @@ mod test {
     }
 
     #[test]
+    #[cfg(feature = "arrayvec")]
     fn test_pubkey_serialize() {
         struct DumbRng(u32);
         impl RngCore for DumbRng {

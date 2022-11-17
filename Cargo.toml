@@ -25,7 +25,7 @@ unstable = []
 bullet-proof-sizing = []
 
 [dependencies]
-arrayvec = "0.7.2"
+arrayvec = { version = "0.7.2", optional = true }
 rand = "0.8.5"
 libc = "0.2"
 rustc-serialize = { version = "0.3", optional = true }
