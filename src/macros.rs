@@ -171,6 +171,7 @@ macro_rules! impl_array_newtype {
             }
         }
 
+        #[cfg(feature = "serde")]
         impl<'de> ::serde::Deserialize<'de> for $thing {
             fn deserialize<D>(d: D) -> Result<$thing, D::Error>
                 where D: ::serde::Deserializer<'de>
@@ -215,6 +216,7 @@ macro_rules! impl_array_newtype {
             }
         }
 
+        #[cfg(feature = "serde")]
         impl ::serde::Serialize for $thing {
             fn serialize<S>(&self, s: S) -> Result<S::Ok, S::Error>
                 where S: ::serde::Serializer

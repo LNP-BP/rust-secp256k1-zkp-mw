@@ -18,10 +18,15 @@
 
 use libc::size_t;
 use std::cmp::min;
+#[cfg(feature = "serde")]
 use std::fmt;
 use std::mem;
 use std::ptr;
 use std::u64;
+
+use rand::{thread_rng, Rng};
+#[cfg(feature = "serde")]
+use serde::{de, ser};
 
 use crate::ContextFlag;
 use crate::Error::{self, InvalidPublicKey, InvalidCommit};
@@ -32,8 +37,6 @@ use crate::aggsig::ZERO_256;
 use crate::constants;
 use crate::ffi;
 use crate::key::{self, PublicKey, SecretKey};
-use rand::{thread_rng, Rng};
-use serde::{de, ser};
 
 const MAX_WIDTH: usize = 1 << 20;
 const SCRATCH_SPACE_SIZE: size_t = 256 * MAX_WIDTH;
@@ -156,6 +159,7 @@ impl Clone for RangeProof {
 	}
 }
 
+#[cfg(feature = "serde")]
 impl ser::Serialize for RangeProof {
 	fn serialize<S>(&self, s: S) -> Result<S::Ok, S::Error>
 	where
@@ -165,8 +169,10 @@ impl ser::Serialize for RangeProof {
 	}
 }
 
+#[cfg(feature = "serde")]
 struct Visitor;
 
+#[cfg(feature = "serde")]
 impl<'di> de::Visitor<'di> for Visitor {
 	type Value = RangeProof;
 
@@ -194,6 +200,7 @@ impl<'di> de::Visitor<'di> for Visitor {
 	}
 }
 
+#[cfg(feature = "serde")]
 impl<'de> de::Deserialize<'de> for RangeProof {
 	fn deserialize<D>(d: D) -> Result<RangeProof, D::Error>
 	where

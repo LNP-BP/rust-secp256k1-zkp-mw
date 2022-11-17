@@ -32,7 +32,9 @@
 
 extern crate arrayvec;
 extern crate rustc_serialize as serialize;
+#[cfg(feature = "serde")]
 extern crate serde;
+#[cfg(feature = "serde_json")]
 extern crate serde_json as json;
 
 extern crate libc;
@@ -226,6 +228,7 @@ impl Signature {
     }
 }
 
+#[cfg(feature = "serde")]
 impl serde::Serialize for Signature {
     fn serialize<S>(&self, s: S) -> Result<S::Ok, S::Error>
         where S: serde::Serializer
@@ -235,6 +238,7 @@ impl serde::Serialize for Signature {
     }
 }
 
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Signature {
     fn deserialize<D>(d: D) -> Result<Signature, D::Error>
         where D: serde::Deserializer<'de>
@@ -442,7 +446,8 @@ impl From<[u8; constants::MESSAGE_SIZE]> for Message {
 }
 
 /// An ECDSA error
-#[derive(Copy, PartialEq, Eq, Clone, Debug, serde::Serialize, serde::Deserialize)]
+#[derive(Copy, PartialEq, Eq, Clone, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Error {
     /// A `Secp256k1` was used for an operation, but it was not created to
     /// support this (so necessary precomputations have not been done)
@@ -803,6 +808,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(feature = "serde")]
     fn signature_serialize_roundtrip() {
         let mut s = Secp256k1::new();
         s.randomize(&mut thread_rng());

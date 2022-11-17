@@ -15,12 +15,14 @@
 
 //! # Public and secret keys
 
+#[cfg(feature = "serde")]
 use std::marker;
 use arrayvec::ArrayVec;
 use rand::Rng;
-use crate::serialize::{Decoder, Decodable, Encoder, Encodable};
+#[cfg(feature = "serde")]
 use serde::{Serialize, Deserialize, Serializer, Deserializer};
 
+use crate::serialize::{Decoder, Decodable, Encoder, Encodable};
 use super::{Secp256k1, ContextFlag};
 use super::Error::{self, IncapableContext, InvalidPublicKey, InvalidSecretKey};
 use crate::constants;
@@ -333,6 +335,7 @@ impl Encodable for PublicKey {
     }
 }
 
+#[cfg(feature = "serde")]
 impl<'de> Deserialize<'de> for PublicKey {
     fn deserialize<D>(d: D) -> Result<PublicKey, D::Error>
         where D: Deserializer<'de>
@@ -393,6 +396,7 @@ impl<'de> Deserialize<'de> for PublicKey {
     }
 }
 
+#[cfg(feature = "serde")]
 impl Serialize for PublicKey {
     fn serialize<S>(&self, s: S) -> Result<S::Ok, S::Error>
         where S: Serializer
@@ -597,6 +601,7 @@ mod test {
     }
 
     #[test]
+    #[cfg(feature = "serde")]
     fn test_bad_serde_deserialize() {
         use serde::Deserialize;
         use crate::json;
@@ -652,6 +657,7 @@ mod test {
 
 
     #[test]
+    #[cfg(feature = "serde")]
     fn test_serialize_serde() {
         let s = Secp256k1::new();
         for _ in 0..500 {
