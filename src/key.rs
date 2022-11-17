@@ -725,7 +725,7 @@ mod test {
             fn fill_bytes(&mut self, dest: &mut [u8]) { 
                 impls::fill_bytes_via_next(self, dest)
             }
-            fn try_fill_bytes(&mut self, _dest: &mut [u8]) -> Result<(), Error> { unimplemented!() }
+            fn try_fill_bytes(&mut self, dest: &mut [u8]) -> Result<(), Error> { impls::fill_bytes_via_next(self, dest); Ok(()) }
         }
 
         let s = Secp256k1::new();
@@ -749,7 +749,7 @@ mod test {
             fn fill_bytes(&mut self, dest: &mut [u8]) { 
                 impls::fill_bytes_via_next(self, dest)
             }
-            fn try_fill_bytes(&mut self, _dest: &mut [u8]) -> Result<(), Error> { unimplemented!() }
+            fn try_fill_bytes(&mut self, dest: &mut [u8]) -> Result<(), Error> { impls::fill_bytes_via_next(self, dest); Ok(()) }
         }
 
         let s = Secp256k1::new();

@@ -1066,7 +1066,8 @@ mod benches {
             }
 
             fn try_fill_bytes(&mut self, dest: &mut [u8]) -> Result<(), Error> {
-                unimplemented!()
+                dest.fill(self.0.to_be_bytes()[0]);
+                Ok(())
             }
         }
 
