@@ -30,6 +30,7 @@
 #![cfg_attr(all(test, feature = "unstable"), feature(test))]
 #[cfg(all(test, feature = "unstable"))] extern crate test;
 
+#[cfg(feature = "rustc-serialize")]
 extern crate rustc_serialize as serialize;
 #[cfg(feature = "serde_json")]
 extern crate serde_json as json;
@@ -695,6 +696,7 @@ impl Secp256k1 {
 #[cfg(test)]
 mod tests {
     use rand::{Rng, thread_rng};
+    #[cfg(feature = "rustc-serialize")]
     use crate::serialize::hex::FromHex;
     use crate::key::{SecretKey, PublicKey};
     use super::constants;
@@ -832,6 +834,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(feature = "rustc-serialize")]
     fn signature_lax_der() {
         macro_rules! check_lax_sig(
             ($hex:expr) => ({
@@ -1023,6 +1026,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(feature = "rustc-serialize")]
     fn test_low_s() {
         // nb this is a transaction on testnet
         // txid 8ccc87b72d766ab3128f03176bb1c98293f2d1f85ebfaf07b82cc81ea6891fa9

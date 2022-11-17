@@ -22,6 +22,7 @@ use rand::Rng;
 #[cfg(feature = "serde")]
 use serde::{Serialize, Deserialize, Serializer, Deserializer};
 
+#[cfg(feature = "rustc-serialize")]
 use crate::serialize::{Decoder, Decodable, Encoder, Encodable};
 use super::{Secp256k1, ContextFlag};
 use super::Error::{self, IncapableContext, InvalidPublicKey, InvalidSecretKey};
@@ -286,6 +287,7 @@ impl PublicKey {
     }
 }
 
+#[cfg(feature = "rustc-serialize")]
 impl Decodable for PublicKey {
     fn decode<D: Decoder>(d: &mut D) -> Result<PublicKey, D::Error> {
         d.read_seq(|d, len| {
@@ -324,6 +326,7 @@ impl From<ffi::PublicKey> for PublicKey {
 }
 
 
+#[cfg(feature = "rustc-serialize")]
 impl Encodable for PublicKey {
     fn encode<S: Encoder>(&self, s: &mut S) -> Result<(), S::Error> {
         let secp = Secp256k1::with_caps(crate::ContextFlag::None);
@@ -504,6 +507,7 @@ mod test {
     }
 
     #[test]
+    #[cfg(feature = "rustc-serialize")]
     fn test_bad_deserialize() {
         use std::io::Cursor;
         use crate::serialize::{json, Decodable};
@@ -539,6 +543,7 @@ mod test {
     }
 
     #[test]
+    #[cfg(feature = "rustc-serialize")]
     fn test_serialize() {
         use std::io::Cursor;
         use crate::serialize::{json, Decodable, Encodable};

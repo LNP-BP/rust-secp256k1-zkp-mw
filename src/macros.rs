@@ -143,6 +143,7 @@ macro_rules! impl_array_newtype {
           }
         }
 
+        #[cfg(feature = "rustc-serialize")]
         impl crate::serialize::Decodable for $thing {
             fn decode<D: crate::serialize::Decoder>(d: &mut D) -> Result<$thing, D::Error> {
                 use crate::serialize::Decodable;
@@ -164,6 +165,7 @@ macro_rules! impl_array_newtype {
             }
         }
 
+        #[cfg(feature = "rustc-serialize")]
         impl crate::serialize::Encodable for $thing {
             fn encode<S: crate::serialize::Encoder>(&self, s: &mut S)
                                                -> Result<(), S::Error> {
