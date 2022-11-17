@@ -20,11 +20,6 @@
 //! and its derivatives.
 //!
 
-#![crate_type = "lib"]
-#![crate_type = "rlib"]
-#![crate_type = "dylib"]
-#![crate_name = "secp256k1zkp"]
-
 // Coding conventions
 #![deny(non_upper_case_globals)]
 #![deny(non_camel_case_types)]
@@ -1051,7 +1046,7 @@ mod tests {
 
 #[cfg(all(test, feature = "unstable"))]
 mod benches {
-    use rand::{Rng, thread_rng};
+    use rand::{Error, Rng, RngCore, thread_rng};
     use test::{Bencher, black_box};
 
     use super::{Secp256k1, Message};
@@ -1059,8 +1054,20 @@ mod benches {
     #[bench]
     pub fn generate(bh: &mut Bencher) {
         struct CounterRng(u32);
-        impl Rng for CounterRng {
+        impl RngCore for CounterRng {
             fn next_u32(&mut self) -> u32 { self.0 += 1; self.0 }
+
+            fn next_u64(&mut self) -> u64 {
+                unimplemented!()
+            }
+
+            fn fill_bytes(&mut self, dest: &mut [u8]) {
+                dest.fill(self.0.to_be_bytes()[0])
+            }
+
+            fn try_fill_bytes(&mut self, dest: &mut [u8]) -> Result<(), Error> {
+                unimplemented!()
+            }
         }
 
         let s = Secp256k1::new();

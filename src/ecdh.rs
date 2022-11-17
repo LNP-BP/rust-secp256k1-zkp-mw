@@ -115,12 +115,13 @@ mod benches {
     use rand::thread_rng;
     use test::{Bencher, black_box};
 
+    use crate::ContextFlag;
     use super::SharedSecret;
-    use super::super::Secp256k1;
+    use crate::Secp256k1;
 
     #[bench]
     pub fn bench_ecdh(bh: &mut Bencher) {
-        let s = Secp256k1::with_caps(::ContextFlag::SignOnly);
+        let s = Secp256k1::with_caps(ContextFlag::SignOnly);
         let (sk, pk) = s.generate_keypair(&mut thread_rng()).unwrap();
 
         let s = Secp256k1::new();
