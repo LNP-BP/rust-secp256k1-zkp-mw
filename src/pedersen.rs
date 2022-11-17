@@ -24,6 +24,7 @@ use std::mem;
 use std::ptr;
 use std::u64;
 
+#[cfg(feature = "rand")]
 use rand::{thread_rng, Rng};
 #[cfg(feature = "serde")]
 use serde::{de, ser};
@@ -573,6 +574,7 @@ impl Secp256k1 {
 
 	/// Convenience function for generating a random nonce for a range proof.
 	/// We will need the nonce later if we want to rewind the range proof.
+	#[cfg(feature = "rand")]
 	pub fn nonce(&self) -> [u8; 32] {
 		thread_rng().gen::<[u8; 32]>()
 	}

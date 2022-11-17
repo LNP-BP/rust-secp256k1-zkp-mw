@@ -35,10 +35,12 @@ extern crate rustc_serialize as serialize;
 #[cfg(feature = "serde_json")]
 extern crate serde_json as json;
 
+#[cfg(feature = "rand")]
 pub extern crate rand;
 
 use libc::size_t;
 use std::{fmt, ops, ptr};
+#[cfg(feature = "rand")]
 use rand::Rng;
 
 #[macro_use]
@@ -586,6 +588,7 @@ impl Secp256k1 {
 
     /// (Re)randomizes the Secp256k1 context for cheap sidechannel resistence;
     /// see comment in libsecp256k1 commit d2275795f by Gregory Maxwell
+    #[cfg(feature = "rand")]
     pub fn randomize<R: Rng>(&mut self, rng: &mut R) {
         let mut seed = [0u8; 32];
         rng.fill(&mut seed);
@@ -607,6 +610,7 @@ impl Secp256k1 {
     /// and `key::PublicKey::from_secret_key`; call those functions directly for
     /// batch key generation. Requires a signing-capable context.
     #[inline]
+    #[cfg(feature = "rand")]
     pub fn generate_keypair<R: Rng>(&self, rng: &mut R)
                                    -> Result<(key::SecretKey, key::PublicKey), Error> {
         let sk = key::SecretKey::new(self, rng);

@@ -16,6 +16,7 @@
 use libc::size_t;
 use crate::ffi;
 use crate::key::{PublicKey, SecretKey};
+#[cfg(feature = "rand")]
 use rand::{thread_rng, Rng};
 use std::ptr;
 use crate::Secp256k1;
@@ -33,6 +34,7 @@ pub const ZERO_256: [u8; 32] = [
 /// In:
 /// msg: the message to sign
 /// seckey: the secret key
+#[cfg(feature = "rand")]
 pub fn export_secnonce_single(secp: &Secp256k1) -> Result<SecretKey, Error> {
 	let mut return_key = SecretKey::new(&secp, &mut thread_rng());
 	let mut seed = [0u8; 32];
@@ -85,6 +87,7 @@ macro_rules! is_zero_pubkey {
 /// secnonce: if Some(SecretKey), the secret nonce to use. If None, generate a nonce
 /// pubnonce: if Some(PublicKey), overrides the public nonce to encode as part of e
 /// final_nonce_sum: if Some(PublicKey), overrides the public nonce to encode as part of e
+#[cfg(feature = "rand")]
 pub fn sign_single(
 	secp: &Secp256k1,
 	msg: &Message,
@@ -268,6 +271,7 @@ pub struct AggSigContext {
 
 impl AggSigContext {
 	/// Creates new aggsig context with a new random seed
+	#[cfg(feature = "rand")]
 	pub fn new(secp: &Secp256k1, pubkeys: &Vec<PublicKey>) -> AggSigContext {
 		let mut seed = [0u8; 32];
 		thread_rng().fill(&mut seed);
