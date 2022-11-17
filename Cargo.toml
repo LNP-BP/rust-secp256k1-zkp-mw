@@ -25,7 +25,7 @@ default = []
 bullet-proof-sizing = []
 
 [dependencies]
-arrayvec = "0.3"
+arrayvec = "0.7.2"
 clippy = {version = "0.0", optional = true}
 rand = "0.8.5"
 libc = "0.2"
