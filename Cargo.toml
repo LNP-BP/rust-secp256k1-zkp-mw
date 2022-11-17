@@ -1,31 +1,28 @@
 [package]
-
-name = "grin_secp256k1zkp"
+name = "lnpbp_secp256k1zkp"
 version = "0.7.11"
 authors = [ "Grin Developers <mimblewimble@lists.launchpad.net>",
             "Dawid Ciężarkiewicz <dpc@ucore.info>",
             "Andrew Poelstra <apoelstra@wpsoftware.net>" ]
 license = "CC0-1.0"
-homepage = "https://grin.mw"
-repository = "https://github.com/mimblewimble/rust-secp256k1/"
-description = "Grin's fork with Zero-Knowledge extensions of Rust bindings for Pieter Wuille's `libsecp256k1` library. Implements ECDSA for the SECG elliptic curve group secp256k1 and related utilities."
+repository = "https://github.com/LNP-BP/rust-secp256k1/"
+description = "LNP/BP fork of Grin version of Zero-Knowledge extensions of Rust bindings for Pieter Wuille's `libsecp256k1` library."
 keywords = [ "crypto", "secp256k1", "grin", "bitcoin", "zero-knowledge" ]
 readme = "README.md"
 edition = "2018"
-
 build = "build.rs"
+
 [build-dependencies]
 cc = "1.0"
 
 [lib]
-name = "secp256k1zkp"
+name = "lnpbp_secp256k1zkp"
 path = "src/lib.rs"
 
 [features]
 unstable = []
 default = []
 bullet-proof-sizing = []
-dev = ["clippy"]
 
 [dependencies]
 arrayvec = "0.3"
