@@ -23,7 +23,7 @@ path = "src/lib.rs"
 default = []
 keygen = ["rand", "arrayvec"]
 unstable = []
-bullet-proof-sizing = []
+# bullet-proof-sizing = [] # Feature breaks bulletproof tests. See #1 for details
 serde = ["serde_crate", "serde_json"]
 
 [dependencies]
