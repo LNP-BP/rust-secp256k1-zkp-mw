@@ -183,7 +183,7 @@ dependencies = [
 
 [[package]]
 name = "lnpbp_secp256k1zkp"
-version = "0.9.0-alpha.1"
+version = "0.9.0-rc.1"
 dependencies = [
  "arrayvec",
  "cc",
