@@ -1,6 +1,4 @@
-[![Build Status](https://dev.azure.com/mimblewimble/rust-secp256k1-zkp/_apis/build/status/mimblewimble.rust-secp256k1-zkp?branchName=master)](https://dev.azure.com/mimblewimble/rust-secp256k1-zkp/_build/latest?definitionId=4&branchName=master)
-
-### rust-secp256k1
+## secp256k1zkp
 
 `rust-secp256k1` is a wrapper around [libsecp256k1](https://github.com/bitcoin/secp256k1),
 a C library by Peter Wuille for producing ECDSA signatures using the SECG curve
