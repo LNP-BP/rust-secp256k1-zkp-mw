@@ -32,6 +32,8 @@
 
 #[cfg(feature = "rustc-serialize")]
 extern crate rustc_serialize as serialize;
+#[cfg(feature = "serde")]
+extern crate serde_crate as serde;
 #[cfg(feature = "serde_json")]
 extern crate serde_json as json;
 
@@ -444,7 +446,7 @@ impl From<[u8; constants::MESSAGE_SIZE]> for Message {
 
 /// An ECDSA error
 #[derive(Copy, PartialEq, Eq, Clone, Debug)]
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize), serde(crate = "serde_crate"))]
 pub enum Error {
     /// A `Secp256k1` was used for an operation, but it was not created to
     /// support this (so necessary precomputations have not been done)

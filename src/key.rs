@@ -409,14 +409,13 @@ impl Serialize for PublicKey {
 
 #[cfg(test)]
 mod test {
-    extern crate rand_core;
     use super::super::{Secp256k1, ContextFlag};
     use super::super::Error::{InvalidPublicKey, InvalidSecretKey, IncapableContext};
     use super::{PublicKey, SecretKey};
     use super::super::constants;
 
     use rand::{Error, RngCore, thread_rng};
-    use self::rand_core::impls;
+    use rand_core::impls;
 
     use std::slice::from_raw_parts;
     use crate::key::ONE_KEY;
