@@ -5,7 +5,7 @@ authors = [ "Grin Developers <mimblewimble@lists.launchpad.net>",
             "Dawid Ciężarkiewicz <dpc@ucore.info>",
             "Andrew Poelstra <apoelstra@wpsoftware.net>" ]
 license = "CC0-1.0"
-repository = "https://github.com/LNP-BP/rust-secp256k1/"
+repository = "https://github.com/LNP-BP/rust-secp256k1-zkp"
 description = "LNP/BP fork of Grin version of Zero-Knowledge extensions of Rust bindings for Pieter Wuille's `libsecp256k1` library."
 keywords = [ "crypto", "secp256k1", "grin", "bitcoin", "zero-knowledge" ]
 readme = "README.md"
